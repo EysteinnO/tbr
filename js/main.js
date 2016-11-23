@@ -1,5 +1,3 @@
-'use strict';
-
 var app = angular.module('SomeApp', ['ngCookies', 'ngRoute', 'ngResource', 'mm.foundation']);
 
 app.directive('routeLoader', function() {
@@ -23,42 +21,26 @@ app.directive('routeLoader', function() {
   }
 });
 
-app.factory('TeamInfo', function($resource) {
-
-    return $resource('/php/get.teams.selected.php', {}, {
-      getData: {
-        method: 'POST',
-        params: ,
-        isArray: false
-      }
-    });
-
-});
-
-app.controller('TeamsController', function($scope, $routeParams, TeamInfo) {
+app.controller('TeamsController', function($scope, $routeParams, $http) {
   $scope.name = "TeamsController";
   $scope.params = $routeParams;
 
   $scope.teamData = {
-    td: TeamInfo.getData(),
+    td: {},
 
-    teamFilter: function(array){
-
-      return array["teams"];
-
-    },
-
-    usersFilter: function(array){
-      return array["users"];
+    getData: function(){
+      $http({
+        method: 'POST',
+        url: '/php/post.teams.selected.php',
+        data: {teamid: $scope.params.teamid}
+      }).then(function successCallback(response) {
+          $scope.td = response.data;
+        }, function errorCallback(response) {
+          console.log("Failed to retrieve data Team Information.")
+        });
     }
 
   };
-
-  $scope.ifUser = {
-    ui: $cookieStore.get('userid'),
-
-
-  }
 
 });
 

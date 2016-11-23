@@ -1,3 +1,38 @@
-    <div class="row">
-    	Welcome
-    </div>
+<div class="large-offset-2 large-8 columns" ng-init="teamData.getData()">
+	<div class="large-8 columns" id="leftTeam">
+		<div id="teamInfo">
+			<ul class="small-block-grid-2 animate-container">
+				<li>
+					<img class="teamImage" src="{{ td.Team.ImgLink }}" alt="Team Image">
+				</li>
+				<li>
+					<h4>{{ td.Team.Name }}</h4>
+					<h5>{{ td.Team.Tag }}</h5>
+				</li>
+			
+			</ul>
+			<textarea rows="4" cols="50">
+				{{ td.Team.Descr }}
+			</textarea>
+		</div>
+		<div id="teamUsers">
+		<hr>
+			<div id="teamUser" ng-repeat="user in td.User">
+				<a class="button split">
+				    {{ user.Name }}
+				<span dropdown-toggle="#dropdown-example-3"></span>
+				</a>
+				<ul id="dropdown-example-3" class="f-dropdown">
+					<li>
+						<a>Remove</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+	<div class="large-4 columns" id="rightTeam">
+		<hr>
+		<a href="/">Go Back</a>
+	</div>
+</div>

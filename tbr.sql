@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2016 at 11:26 AM
+-- Generation Time: Nov 23, 2016 at 09:04 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -44,10 +44,10 @@ INSERT INTO `comp` (`id`, `games_id`, `compDate`, `description`, `prize`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comp_teams`
+-- Table structure for table `comp_team`
 --
 
-CREATE TABLE `comp_teams` (
+CREATE TABLE `comp_team` (
   `id` int(11) NOT NULL,
   `comp_id` int(11) DEFAULT NULL,
   `teams_id` int(11) DEFAULT NULL
@@ -56,29 +56,29 @@ CREATE TABLE `comp_teams` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `games`
+-- Table structure for table `game`
 --
 
-CREATE TABLE `games` (
+CREATE TABLE `game` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `maxPlayer` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `games`
+-- Dumping data for table `game`
 --
 
-INSERT INTO `games` (`id`, `name`, `maxPlayer`) VALUES
+INSERT INTO `game` (`id`, `name`, `maxPlayer`) VALUES
 (1, 'Bob : GO', '5');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teams`
+-- Table structure for table `team`
 --
 
-CREATE TABLE `teams` (
+CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `teamname` varchar(255) NOT NULL,
   `teamtag` char(3) NOT NULL,
@@ -87,23 +87,31 @@ CREATE TABLE `teams` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `teams`
+-- Dumping data for table `team`
 --
 
-INSERT INTO `teams` (`id`, `teamname`, `teamtag`, `description`, `imgLink`) VALUES
+INSERT INTO `team` (`id`, `teamname`, `teamtag`, `description`, `imgLink`) VALUES
 (3, 'BobInPajamas', 'BIJ', 'We are bob', 'http://i.imgur.com/DoXLf7v.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `teams_user`
+-- Table structure for table `team_user`
 --
 
-CREATE TABLE `teams_user` (
+CREATE TABLE `team_user` (
   `id` int(11) NOT NULL,
   `team_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `team_user`
+--
+
+INSERT INTO `team_user` (`id`, `team_id`, `user_id`) VALUES
+(19, 3, 1),
+(20, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -126,7 +134,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `name`, `password`, `email`, `isAdmin`, `imgLink`) VALUES
-(1, 'Bob', 'Bob Bob', 'password', 'bob@bobmail.com', 1, 'http://i.imgur.com/ZYzQKIR.png');
+(1, 'Bob', 'Bob Bob', 'password', 'bob@bobmail.com', 1, 'http://i.imgur.com/ZYzQKIR.png'),
+(2, 'Potato', 'Potato Potato', 'password', 'potato@bobmail.com', NULL, 'http://i.imgur.com/nimIn05.jpg');
 
 --
 -- Indexes for dumped tables
@@ -140,32 +149,32 @@ ALTER TABLE `comp`
   ADD KEY `games_id` (`games_id`);
 
 --
--- Indexes for table `comp_teams`
+-- Indexes for table `comp_team`
 --
-ALTER TABLE `comp_teams`
+ALTER TABLE `comp_team`
   ADD PRIMARY KEY (`id`),
   ADD KEY `teams_id` (`teams_id`),
   ADD KEY `comp_id` (`comp_id`);
 
 --
--- Indexes for table `games`
+-- Indexes for table `game`
 --
-ALTER TABLE `games`
+ALTER TABLE `game`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indexes for table `teams`
+-- Indexes for table `team`
 --
-ALTER TABLE `teams`
+ALTER TABLE `team`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `teamname` (`teamname`),
   ADD UNIQUE KEY `teamtag` (`teamtag`);
 
 --
--- Indexes for table `teams_user`
+-- Indexes for table `team_user`
 --
-ALTER TABLE `teams_user`
+ALTER TABLE `team_user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `team_id` (`team_id`),
   ADD KEY `user_id` (`user_id`);
@@ -188,30 +197,30 @@ ALTER TABLE `user`
 ALTER TABLE `comp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `comp_teams`
+-- AUTO_INCREMENT for table `comp_team`
 --
-ALTER TABLE `comp_teams`
+ALTER TABLE `comp_team`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `games`
+-- AUTO_INCREMENT for table `game`
 --
-ALTER TABLE `games`
+ALTER TABLE `game`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `teams`
+-- AUTO_INCREMENT for table `team`
 --
-ALTER TABLE `teams`
+ALTER TABLE `team`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `teams_user`
+-- AUTO_INCREMENT for table `team_user`
 --
-ALTER TABLE `teams_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `team_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -220,21 +229,21 @@ ALTER TABLE `user`
 -- Constraints for table `comp`
 --
 ALTER TABLE `comp`
-  ADD CONSTRAINT `comp_ibfk_1` FOREIGN KEY (`games_id`) REFERENCES `games` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `comp_ibfk_1` FOREIGN KEY (`games_id`) REFERENCES `game` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `comp_teams`
+-- Constraints for table `comp_team`
 --
-ALTER TABLE `comp_teams`
-  ADD CONSTRAINT `comp_teams_ibfk_1` FOREIGN KEY (`comp_id`) REFERENCES `comp` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `comp_teams_ibfk_2` FOREIGN KEY (`teams_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `comp_team`
+  ADD CONSTRAINT `comp_team_ibfk_1` FOREIGN KEY (`teams_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `comp_team_ibfk_2` FOREIGN KEY (`comp_id`) REFERENCES `comp` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `teams_user`
+-- Constraints for table `team_user`
 --
-ALTER TABLE `teams_user`
-  ADD CONSTRAINT `teams_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `teams_user_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `team_user`
+  ADD CONSTRAINT `team_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `team_user_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
