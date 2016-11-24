@@ -3,7 +3,7 @@
 		<div id="teamInfo">
 			<ul class="small-block-grid-2 animate-container">
 				<li>
-					<img class="teamImage" src="{{ td.Team.ImgLink }}" alt="Team Image">
+					<img class="image-cropper" src="{{ td.Team.ImgLink }}" alt="Team Image">
 				</li>
 				<li>
 					<h4>{{ td.Team.Name }}</h4>
@@ -17,17 +17,28 @@
 		</div>
 		<div id="teamUsers">
 		<hr>
-			<div id="teamUser" ng-repeat="user in td.User">
-				<a class="button split">
-				    {{ user.Name }}
-				<span dropdown-toggle="#dropdown-example-3"></span>
-				</a>
-				<ul id="dropdown-example-3" class="f-dropdown">
-					<li>
-						<a>Remove</a>
-					</li>
-				</ul>
-			</div>
+			<accordion>
+			    <accordion-group heading="Manage Tean" is-open="true">
+					    <pre>User: {{selected | json}}</pre>
+					    <input placeholder="Username" type="text" ng-model="selected" typeahead="user for user in userData.lookUp(selected) | limitTo:8" class="form-control">
+					    <a>Add selected User</a>
+			      		<hr>
+			      		<label class="checkbox">
+							<input type="checkbox" ng-model="confirmDelete">
+							I agree to delete my team.
+						</label>
+			      		<a ng-click="deleteTeam(confirmDelete)">Delete Team</a>
+			    </accordion-group>
+			    <div ng-repeat="user in td.User">
+			    	<accordion-group is-open="isopen">
+				        <accordion-heading>
+				            {{ user.Name }}
+				        </accordion-heading>
+				        <a>Remove Userq</a>
+				    </accordion-group>
+			    </div>
+
+			</accordion>
 		</div>
 		
 	</div>

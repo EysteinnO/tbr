@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2016 at 09:04 PM
+-- Generation Time: Nov 24, 2016 at 02:05 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -83,15 +83,16 @@ CREATE TABLE `team` (
   `teamname` varchar(255) NOT NULL,
   `teamtag` char(3) NOT NULL,
   `description` text,
-  `imgLink` varchar(255) DEFAULT NULL
+  `imgLink` varchar(255) DEFAULT NULL,
+  `teamOwner` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `team`
 --
 
-INSERT INTO `team` (`id`, `teamname`, `teamtag`, `description`, `imgLink`) VALUES
-(3, 'BobInPajamas', 'BIJ', 'We are bob', 'http://i.imgur.com/DoXLf7v.jpg');
+INSERT INTO `team` (`id`, `teamname`, `teamtag`, `description`, `imgLink`, `teamOwner`) VALUES
+(3, 'BobInPajamas', 'BIJ', 'We are bob', 'http://i.imgur.com/DoXLf7v.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -169,7 +170,8 @@ ALTER TABLE `game`
 ALTER TABLE `team`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `teamname` (`teamname`),
-  ADD UNIQUE KEY `teamtag` (`teamtag`);
+  ADD UNIQUE KEY `teamtag` (`teamtag`),
+  ADD KEY `teamOwner` (`teamOwner`);
 
 --
 -- Indexes for table `team_user`
@@ -237,6 +239,12 @@ ALTER TABLE `comp`
 ALTER TABLE `comp_team`
   ADD CONSTRAINT `comp_team_ibfk_1` FOREIGN KEY (`teams_id`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `comp_team_ibfk_2` FOREIGN KEY (`comp_id`) REFERENCES `comp` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `team`
+--
+ALTER TABLE `team`
+  ADD CONSTRAINT `team_Ownder_constraint` FOREIGN KEY (`teamOwner`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `team_user`

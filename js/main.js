@@ -26,7 +26,7 @@ app.controller('TeamsController', function($scope, $routeParams, $http) {
   $scope.params = $routeParams;
 
   $scope.teamData = {
-    td: {},
+    td: null,
 
     getData: function(){
       $http({
@@ -42,6 +42,31 @@ app.controller('TeamsController', function($scope, $routeParams, $http) {
 
   };
 
+  $scope.deleteTeam = function(check){
+    console.log(check);
+    if(check == true){
+      alert("I am a function rawr");
+    }
+  };
+
+  $scope.userData = {
+    ud: null,
+
+    lookUp: function(text){
+      var toReturn;
+
+      $http({
+        method: 'POST',
+        url: '/php/post.user.lookup.php',
+        data: {username: text}
+      }).then(function successCallback(response) {
+        }, function errorCallback(response) {
+          return ["Failed to find user."];
+        });
+
+      return toReturn;
+    }
+  };
 });
 
 app.controller('MainController', function($scope, $route, $routeParams, $location, $cookies, $cookieStore) {

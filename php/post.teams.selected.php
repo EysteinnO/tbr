@@ -2,9 +2,9 @@
 
 require('init.database.php');
 
-//$data = json_decode(file_get_contents('php://input'));
+$data = json_decode(file_get_contents('php://input'));
 
-$ID = 3;
+$ID = $data->teamid;
 
 $toReturn = [];
 
