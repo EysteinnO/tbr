@@ -9,7 +9,7 @@ app.directive('routeLoader', function() {
       function hideElement() {
         element.css('display', 'none');
       }
-            
+
       scope.$on('$routeChangeStart', function() {
         element.css('display', shownType);
       });
@@ -69,10 +69,15 @@ app.controller('TeamsController', function($scope, $routeParams, $http) {
   };
 });
 
+app.controller('UsersController', function($scope, $routeParams, $http){
+  $scope.name = 'UsersController';
+  $scope.params = $routeParams;
+});
+
 app.controller('MainController', function($scope, $route, $routeParams, $location, $cookies, $cookieStore) {
      $scope.$route = $route;
      $scope.$location = $location;
-     $scope.$routeParams = $routeParams; 
+     $scope.$routeParams = $routeParams;
 });
 
 app.config(function($routeProvider, $locationProvider){
@@ -85,6 +90,10 @@ app.config(function($routeProvider, $locationProvider){
     .when('/teams/:teamid', {
       templateUrl: '/js/templates/templateTeams.html',
       controller: 'TeamsController'
+    })
+    .when('/users/:userid', {
+      templateUrl: '/js/templates/templateUsers.html',
+      controller: 'UsersController'
     })
     .otherwise({
       redirectTo: '/main'

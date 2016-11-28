@@ -1,0 +1,19 @@
+<div class="large-offset-2 large-8 columns" ng-init="teamData.getData()">
+	<div class="large-8 columns" id="leftTeam">
+		<div id="teamInfo">
+			<ul class="small-block-grid-2 animate-container">
+				<li>
+					<img class="image-cropper" src="{{ td.Team.ImgLink }}" alt="Team Image">
+				</li>
+			</ul>
+			<textarea rows="4" cols="50">
+				{{ td.Team.Descr }}
+			</textarea>
+		</div>
+
+	</div>
+	<div class="large-4 columns" id="rightTeam">
+		<hr>
+		<a href="/">Go Back</a>
+	</div>
+</div>
