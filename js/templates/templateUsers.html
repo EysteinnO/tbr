@@ -1,16 +1,25 @@
 <div class="large-offset-2 large-8 columns" ng-init="userData.getData()">
-	<div class="large-8 columns" id="leftTeam">
-		<div id="teamInfo">
+	<div class="large-8 columns" id="leftUser">
+		<div id="userPicture">
 			<ul class="small-block-grid-2 animate-container">
 				<li>
-					<img class="image-cropper" src="" alt="User Image">
+					<img class="image-cropper" src="{{ ud.User.imgLink }}" alt="User Image">
+				</li>
+				<li>
+					<h4>{{ ud.User.username }}</h4>
+					<h5>{{ ud.User.name }}</h5>
 				</li>
 			</ul>
-
 		</div>
-
+		<div id="userInfo">
+			<ul class="small-block-grid-1">
+				<li>
+					<p>{{ ud.User.email }}</p>
+				</li>
+			</ul>
+		</div>
 	</div>
-	<div class="large-4 columns" id="rightTeam">
+	<div class="small-4 columns" id="bottomUser">
 		<hr>
 		<a href="/">Go Back</a>
 	</div>
