@@ -10,8 +10,8 @@ $toReturn = [];
 $tempuserarray = [];
 $tempcomparray = [];
 
-$keyword = "User";
-$keyword = "TeamComps"
+$keyword1 = "User";
+$keyword2 = "TeamComps";
 
 
 $sth = $dhb->prepare('SELECT 
@@ -49,8 +49,12 @@ $sth = $dhb->prepare('SELECT
 	inner join team t on ct.team_id = t.id
 	where ct.team_id = t.id*/');
 
-teams_id
-$toReturn[$keyword] = $tempuserarray;
+$sth->bindParam(':ID', $ID, PDO::PARAM_INT);
+$sth->execute();
+$tempcomparray = $sth->fetch();
+
+$toreturn[$keyword2] = $tempcomparray;
+$toReturn[$keyword1] = $tempuserarray;
 
 echo (json_encode($toReturn, JSON_UNESCAPED_SLASHES));
 ?> 
