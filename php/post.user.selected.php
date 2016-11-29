@@ -51,7 +51,8 @@ $sth = $dhb->prepare('SELECT
 
 $sth->bindParam(':ID', $ID, PDO::PARAM_INT);
 $sth->execute();
-$tempcomparray = $sth->fetch();
+$sth->setFetchMode(PDO::FETCH_ASSOC);
+$tempcomparray = $sth->fetchAll();
 
 $toreturn[$keyword2] = $tempcomparray;
 $toReturn[$keyword1] = $tempuserarray;
