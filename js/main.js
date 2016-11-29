@@ -72,6 +72,24 @@ app.controller('TeamsController', function($scope, $routeParams, $http) {
 app.controller('UsersController', function($scope, $routeParams, $http){
   $scope.name = 'UsersController';
   $scope.params = $routeParams;
+
+  $scope.userData = {
+    ud: null,
+
+    getData: function(){
+      $http({
+        method: 'POST',
+        url: '/php/post.user.selected.php',
+        data: {userid: $scope.params.userid}
+      }).then(function successCallback(response){
+        $scope.ud = response.data;
+      }, function errorCallback(response){
+        console.log("no user info 4 u")
+      });
+    }
+  };
+
+
 });
 
 app.controller('MainController', function($scope, $route, $routeParams, $location, $cookies, $cookieStore) {
