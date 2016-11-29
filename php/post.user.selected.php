@@ -1,5 +1,5 @@
-<?php 
-require 'inite.database.php';
+<?php
+require 'init.database.php';
 
 $data = json_decode(file_get_contents('php://input'));
 
@@ -14,14 +14,14 @@ $keyword1 = "User";
 $keyword2 = "TeamComps";
 
 
-$sth = $dhb->prepare('SELECT 
+$sth = $dbh->prepare('SELECT
 	id AS ID,
 	username AS Username,
 	name AS Name,
 	email AS Email,
 	imgLink AS imgLink
-	FROM 
-	user WHERE 
+	FROM
+	user WHERE
 	id = :ID');
 
 $sth->bindParam(':ID', $ID, PDO::PARAM_INT);
@@ -30,7 +30,7 @@ $sth->setFetchMode(PDO::FETCH_ASSOC);
 
 $tempuserarray = $sth->fetch();
 
-$sth = $dhb->prepare('SELECT	
+$sth = $dbh->prepare('SELECT
 	t.id AS ID,
 	t.teamname AS TeamName,
 	ct.comp_id AS compID,
@@ -42,10 +42,10 @@ $sth = $dhb->prepare('SELECT
 	inner join comp c on ct.comp_id = c.id
 	inner join game g on c.games_id = g.id
 	WHERE tu.user_id = :ID
-	/*AND 
-	SELECT 
+	/*AND
+	SELECT
 	ct.comp_id AS compID
-	from comp_team ct 
+	from comp_team ct
 	inner join team t on ct.team_id = t.id
 	where ct.team_id = t.id*/');
 
@@ -58,4 +58,4 @@ $toreturn[$keyword2] = $tempcomparray;
 $toReturn[$keyword1] = $tempuserarray;
 
 echo (json_encode($toReturn, JSON_UNESCAPED_SLASHES));
-?> 
+?>
