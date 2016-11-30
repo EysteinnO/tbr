@@ -1,0 +1,49 @@
+<div class="large-offset-2 large-8 columns" ng-init="teamData.getData()">
+	<div class="large-8 columns" id="leftTeam">
+		<div id="teamInfo">
+			<ul class="small-block-grid-2 animate-container">
+				<li>
+					<img class="image-cropper" src="{{ td.Team.ImgLink }}" alt="Team Image">
+				</li>
+				<li>
+					<h4>{{ td.Team.Name }}</h4>
+					<h5>{{ td.Team.Tag }}</h5>
+				</li>
+			
+			</ul>
+			<textarea rows="4" cols="50">
+				{{ td.Team.Descr }}
+			</textarea>
+		</div>
+		<div id="teamUsers">
+		<hr>
+			<accordion>
+			    <accordion-group heading="Manage Tean" is-open="true">
+					    <pre>User: {{selected | json}}</pre>
+					    <input placeholder="Username" type="text" ng-model="selected" typeahead="user for user in userData.lookUp(selected) | limitTo:8" class="form-control">
+					    <a>Add selected User</a>
+			      		<hr>
+			      		<label class="checkbox">
+							<input type="checkbox" ng-model="confirmDelete">
+							I agree to delete my team.
+						</label>
+			      		<a ng-click="deleteTeam(confirmDelete)">Delete Team</a>
+			    </accordion-group>
+			    <div ng-repeat="user in td.User">
+			    	<accordion-group is-open="isopen">
+				        <accordion-heading>
+				            {{ user.Name }}
+				        </accordion-heading>
+				        <a>Remove Userq</a>
+				    </accordion-group>
+			    </div>
+
+			</accordion>
+		</div>
+		
+	</div>
+	<div class="large-4 columns" id="rightTeam">
+		<hr>
+		<a href="/">Go Back</a>
+	</div>
+</div>
