@@ -14,20 +14,20 @@
 		<div id="userInfo">
 			<ul class="small-block-grid-1">
 				<li>
-					<p>{{ ud.User.email }}</p>
+					<p>{{ ud.User.Email }}</p>
 				</li>
 			</ul>
 			<ul class="small-block-grid-1">
-				<p>{{ ud.TeamComps.TeamName }}</p>
+				<p>{{ TeamComps.TeamName }}</p>
 			</ul>
 		</div>
 	</div>
 	<div class="large-4 columns" id="rightUser">
 		<ul class="small-block-grid-3 animate-container">
-			<li ng-repeat="compID in TeamComps">
-				<p>{{ ud.TeamComps.compID }}</p>
-				<p>{{ ud.TeamComps.compDate }}</p>
-				<p>{{ ud.TeamComps.gameName }}</p>
+			<li>
+				<p>{{ TeamComps.compID }}</p>
+				<p>{{ TeamComps.compDate }}</p>
+				<p>{{ TeamComps.gameName }}</p>
 			</li>
 		</ul>
 	</div>

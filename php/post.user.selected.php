@@ -41,21 +41,16 @@ $sth = $dbh->prepare('SELECT
 	inner join comp_team ct on tu.team_id = ct.teams_id
 	inner join comp c on ct.comp_id = c.id
 	inner join game g on c.games_id = g.id
-	WHERE tu.user_id = :ID
-	/*AND
-	SELECT
-	ct.comp_id AS compID
-	from comp_team ct
-	inner join team t on ct.team_id = t.id
-	where ct.team_id = t.id*/');
+	WHERE tu.user_id = :ID');
 
 $sth->bindParam(':ID', $ID, PDO::PARAM_INT);
 $sth->execute();
 $sth->setFetchMode(PDO::FETCH_ASSOC);
-$tempcomparray = $sth->fetchAll();
+$tempcomparray = $sth->fetch();
 
-$toreturn[$keyword2] = $tempcomparray;
+
 $toReturn[$keyword1] = $tempuserarray;
+$toreturn[$keyword2] = $tempcomparray;
 
 echo (json_encode($toReturn, JSON_UNESCAPED_SLASHES));
 ?>
